@@ -1,0 +1,25 @@
+.product-form{
+    margin-top: 10px;
+    margin: auto;
+}
+
+.product-form form{ 
+    text-decoration: none;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: right;
+    text-align: center;
+}
+
+form div{
+    margin: 15px 0  15px 0;
+}
+
+
+form input{
+    width: 200px;
+}
+
+#description{
+    height: 150px;
+}

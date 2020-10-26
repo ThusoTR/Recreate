@@ -1,0 +1,37 @@
+.all-products{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.product{
+    height: 510px;
+    width: 300px;
+    display: inline-block;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    margin: 10px 10px 10px 10px;
+}
+.product-image img{
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.title-price{
+    text-align: center;
+}
+.cartButton{
+    text-align: center;
+}
+.cartButton button{
+    font-size: 1.15em;
+    background-color: white;
+    width: 200px;
+    height: 30px;
+    border: solid salmon;
+    border-radius: 10px;
+    margin: 5px 0 5px 0;
+}
+
+.cartButton button:hover{
+    background-color: salmon;
+}

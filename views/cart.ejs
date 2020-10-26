@@ -1,0 +1,25 @@
+<%- include('includes/navigationTab', {pageTitle: 'homepage'}); %>
+<link rel="stylesheet" href="styles/cart.css">
+     <div class="cart-page">
+        <div class="all-cart-products">
+            <% allCartProducts.forEach(function(product) {%>
+                <div class="product">
+                    <div class="product-image">
+                        <img src=<%=product.url_link %> alt="">
+                    </div>
+                    <div class="product-details">
+                        <p><strong>Name:</strong> <%= product.title %></p>
+                        <p><strong>Product description:</strong> <%= product.title %></p>
+                        <p><strong>Quantity:</strong> <%= product.quantity %></p>
+                        <p><strong>Total price:</strong> <%= product.price %></p>
+                        
+                        <div>
+                            <a href="/view-cart/<%= product.key %>"> <button>Remove from Cart</button></a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div> 
+     </div>
+</body>
+</html>

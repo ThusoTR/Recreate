@@ -1,0 +1,14 @@
+.welcome_section{
+    height: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.welcome_section p{
+    color: orangered;
+    padding-top: 10%;
+}
+
+.welcome_section p:hover{
+    color: yellow;
+}
