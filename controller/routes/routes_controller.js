@@ -27,14 +27,16 @@ exports.productsAdmin = app.get('/products-admin', (req, res, next) =>{
     })
 })
 
-exports.productsAdmin = app.get('/products-admin/:productID', (req, res, next) =>{
+exports.productsAdmin = app.get('/products-admin/:id', (req, res, next) =>{
     
-    let productID = req.params.productID
-  
-    Product_ = Product.findAll({where: {
+    let productID = req.params.id
+    
+    Product.findAll({where: {
         id: productID
     }})
     .then((allProducts)=>{
+        console.log('productID:', req.params)
+
         console.log('products:', allProducts)
         let productDetails = {
                 title: allProducts[0].title,
@@ -44,7 +46,8 @@ exports.productsAdmin = app.get('/products-admin/:productID', (req, res, next) =
         }
 
         res.render('addProduct', {productDetails: productDetails,
-                                    admin: true})})
+                                    admin: true})
+    })
     .catch( error => {
         console.log('product not found: ' , error)
     })                                    

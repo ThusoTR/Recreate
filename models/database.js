@@ -5,4 +5,11 @@ const sequleInstance = new Sequelize('shop_products', 'root', '20270', {
     dialect: 'mysql',
 })
 
+// try {
+//     sequleInstance.authenticate();
+//     console.log('Connection has been established successfully.');
+//   } catch (error) {
+//     console.error('Unable to connect to the database:', error);
+//   }
+
 module.exports = sequleInstance

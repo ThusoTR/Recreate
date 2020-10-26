@@ -21,6 +21,8 @@ const Product = sequelizeinstance.define( 'Product', {
   }
 }, {
   tableName: 'products'
-})
+}) 
 
-module.exports = Product
+// Product.sync()
+
+module.exports = Product  
