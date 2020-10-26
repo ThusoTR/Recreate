@@ -16,14 +16,13 @@
                     <a href="/product/<%= product.id %>"><button>Add to cart</button></a>
                     
                     <% }else { %>
-                        <a href="/products-admin/<%= product.id %>"><button>Edit Product</button></a>
-                        <a href="/products-admin/delete/<%= product.id %>"><button>Delete Product</button></a>
+                        <a href="/products-admin/<%= product.id %>"><button>Edit product</button></a>
+                        <a href="/products-admin/delete/<%= product.id %>"><button>Delete product</button></a>
                     <% } %>
                 </div>
             </div>
-        
     <% }); %>
-    
+
 </div>
 </body>
 </html>
