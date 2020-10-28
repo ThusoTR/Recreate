@@ -2,19 +2,25 @@ const {Sequelize, DataTypes} = require('sequelize')
 
 const sequelizeinstance = require('./database')
 
-const Cart = sequelizeinstance.define( 'Cart', {
-    totalPrice: {
-        type: DataTypes.INTEGER,
+const User = sequelizeinstance.define( 'User', {
+    firstName: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+   },   
     dateCreated: {
         type: DataTypes.DATE,
         allowNull: false,
-   },
+  },
     dateUpdated: {
         type: DataTypes.DATE,
         allowNull: false,
- },
+    },
 }) 
  
- module.exports = Cart  
+ // Product.sync()
+ 
+ module.exports = User  

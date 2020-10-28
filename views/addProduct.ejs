@@ -1,28 +1,28 @@
 <%- include('includes/navigationTab', {pageTitle: 'Add a Product'}); %>
-<link rel="stylesheet" href="add-product.css">
+<link rel="stylesheet" href="/styles/add-product.css">
 <div class = "product-form">
     <form action=<%= admin ?"/products-admin":"/add-product" %> method="POSt">
 
         <div>
             <label for="title">Title</label>
             <br>
-            <input type="text" name="title" id="title" required placeholder =  <%= admin ? productDetails.title: '' %>>
+            <input type="text" name="title" id="title" required value =  <%= admin ? productDetails.title: '' %>>
         </div>
         <div>
             <label for="description">Description</label> 
             <br>
-            <input type="text" name="description" id="description" required placeholder =  <%= admin ? productDetails.title: '' %>>
+            <input type="text" name="description" id="description" required value =  <%= admin ? productDetails.title: '' %>>
         </div>
         <div>
             <label for="imageURL">Image URL</label>
             <br>
-            <input type="url" name="imageURL" id="imageURL" required placeholder =  <%= admin ? productDetails.ImageUrl: '' %>>
+            <input type="url" name="imageURL" id="imageURL" required value =  <%= admin ? productDetails.ImageUrl: '' %>>
         </div>
 
         <div>
             <label for="price">Price</label>
             <br>
-            <input type="number" name="price" id="label" min="50" required placeholder =  <%= admin ? productDetails.price: '' %>>
+            <input type="number" name="price" id="label" min="50" required value =  <%= admin ? productDetails.price: '' %>>
         </div>
 
         <div>

@@ -19,8 +19,6 @@ const Product = sequelizeinstance.define( 'Product', {
     type: DataTypes.STRING,
     allowNull: false,
   }
-}, {
-  tableName: 'products'
 }) 
 
 // Product.sync()
