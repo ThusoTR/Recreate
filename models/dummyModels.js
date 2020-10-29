@@ -5,7 +5,7 @@ const Order = require('./order')
 const Product = require('./products')
 const User = require('./user')
 
-exports.User = User.create({
+let User_Record = User.create({
     firstName: 'Thuso',
     lastName: 'tshishonga',
     dateCreated: Date.now(),
@@ -21,11 +21,12 @@ exports.User = User.create({
     console.log('User not created:', error)
 })
 
-exports.Cart = Cart.create({
+let Cart_For_User = Cart.create({
     totalPrice: 0,
     dateCreated: Date.now(),
     dateUpdated: Date.now()
-}).then(() => {
+})
+.then(() => {
     console.log('User Created:', {
         firstname: 'Thuso',
         lastName: 'tshishonga',
@@ -35,4 +36,12 @@ exports.Cart = Cart.create({
 }).catch((error) =>{
     console.log('User not created:', error)
 })
+//Cart_For_User.belongsTo(User_Record)
+//User_Record.hasOne(Cart_For_User)
+
+User_Record.findById(1)
+
+exports.User = User_Record
+exports.Cart = Cart_For_User
+
 

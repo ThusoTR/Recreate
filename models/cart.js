@@ -5,7 +5,7 @@ const sequelizeinstance = require('./database')
 const Cart = sequelizeinstance.define( 'Cart', {
     totalPrice: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
     dateCreated: {
         type: DataTypes.DATE,
