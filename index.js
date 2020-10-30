@@ -4,7 +4,11 @@ const app = express()
 
 const routes = require('./controller/routes/routes_controller')
 
-dummymodels = require('./models/dummyModels')
+const User = require('./models/user')
+const Cart = require('./models/cart')
+const dummymodels = require('./models/dummyModels')
+
+
 
 app.use(express.static('public'))
 
@@ -15,10 +19,19 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true }))
 
 app.use((req, res, next)=>{
-    req.User = dummymodels.User;
-    req.Cart = dummymodels.Cart;
+    User.findByPk(1)
+    .then(UserObj =>{
+        req.User = UserObj
+        //console.log('Request:',  req.User)
+        next()
+    })
+    .catch(error =>{
+        console.log('middleware: ', error)
+    })
+
+    
 })
-app.use(routes.home) -
+app.use(routes.home) 
 app.use(routes.productList)
 app.use(routes.productsAdmin)
 app.use(routes.productDelete)

@@ -13,15 +13,22 @@ User.hasOne(Cart, {
     onUpdate: 'CASCADE',
     foreignKey: {
       allowNull: false,
-    }  
+    } 
   })
-Cart.belongsTo(User)
+Cart.belongsTo(User, {
+ 
+})
 
 User.hasMany(Product, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',  
+    foreignKey:{
+      allowNull: false,
+    }
   })
 Product.belongsTo(User)
+
+
 
 User.hasMany(Order, {
     onDelete: 'CASCADE',
@@ -35,4 +42,12 @@ Cart.belongsToMany(Product, { through: 'CartsProducts' });
 Product.belongsToMany(Order, { through: 'ProductsOrders' });
 Order.belongsToMany(Product, { through: 'ProductsOrders' });
 
-sequelizeinstance.sync({ force: true });
+const syncAllModels = () =>{
+  sequelizeinstance.sync({ force: true });
+}
+
+if (require.main === module) {
+  syncAllModels();
+}
+
+module.exports = syncAllModels

@@ -1,6 +1,9 @@
 const express = require('express')
 const Product = require('../../models/products')
 const Cart = require('../../models/cart')
+
+const assosciations = require('../../models/databaseAdmin') //allows for model assosciation to be visible in this file
+
 const app = express()
 
 
@@ -87,21 +90,27 @@ exports.productsAdmin = app.post('/products-admin', (req, res, next) =>{
     
 })
 exports.addProduct = app.get('/add-product', (req, res, next) =>{
+    console.log(req.User.id)
     res.render('addProduct', {productDetails: {},
                               admin: false})
 })
 
 exports.addProduct = app.post('/add-product', (req, res, next) =>{
-    let Product_ = Product.create({title: req.body.title,
-                            description: req.body.description,
-                            imageURL: req.body.imageURL, 
-                            price: req.body.price}).then(() =>{
-                                console.log('body:', req.body)
-                                res.redirect('/home')
-                            }).catch((error) =>{
-                                console.log('req.body.description: -- ',req.body.title)
-                                console.log(error)
-                            })
+    let userIdNumber = 1
+
+    Product.create({
+        title: req.body.title,
+        description: req.body.description,
+        imageURL: req.body.imageURL, 
+        price: req.body.price,
+        UserId: req.User.id,
+        })
+        .then(() =>{
+        res.redirect('/home')
+        })
+        .catch((error) =>{
+        console.log(error)
+        })
 
 })
 
@@ -137,6 +146,6 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
     productKey = req.params.productKey
     
     myCartInstance.removeFromCart(productKey)
-
+ 
     res.redirect('/view-cart')
 }) 
