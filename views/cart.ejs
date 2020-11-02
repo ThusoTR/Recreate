@@ -1,11 +1,11 @@
 <%- include('includes/navigationTab', {pageTitle: 'homepage'}); %>
-<link rel="stylesheet" href="styles/cart.css">
+<link rel="stylesheet" href="/styles/cart.css">
      <div class="cart-page">
         <div class="all-cart-products">
             <% allCartProducts.forEach(function(product) {%>
                 <div class="product">
                     <div class="product-image">
-                        <img src=<%=product.url_link %> alt="">
+                        <img src=<%=product.imageURL %> alt="">
                     </div>
                     <div class="product-details">
                         <p><strong>Name:</strong> <%= product.title %></p>

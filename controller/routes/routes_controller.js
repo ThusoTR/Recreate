@@ -13,7 +13,6 @@ exports.home = app.get('/home', (req, res, next) =>{
 
 exports.productList = app.get('/product-list', (req, res, next) =>{
     Product.findAll().then((allProducts)=>{
-        console.log('Products:', allProducts)
         res.render('productsList', {allProdcuts: allProducts,
                                     admin: false})}) 
     .catch( error =>{
@@ -116,36 +115,57 @@ exports.addProduct = app.post('/add-product', (req, res, next) =>{
 
 exports.addtoCart = app.get('/product/:productKey', (req, res, next) =>{
     productKey = req.params.productKey
- 
-    Product_ = new Product()
 
-    Product_.allProducts((allProducts) =>{
-        allProducts.forEach(element => {
-            if(element.key == productKey)
-                {
-                    let myCart = new Cart
-                    myCart.addToCart(element)
-                }
-            else
-                console.log("product not found")
-        });
-        res.redirect('/home') 
+    let currentUser = req.User
+
+    console.log('user:', currentUser.firstName)
+    
+    let cartForUser = currentUser.getCart()
+    .then(userCart =>{
+        
+        Product.findByPk(productKey)
+        .then(productToAdd =>{
+            userCart.addProduct(productToAdd, {
+                though:{
+                UserId: req.User.id
+            }})
+        }).catch(()=>{
+            console.log('product not added')
+        })
+        
+    res.redirect('/home') 
     })
 })
 
 exports.viewCart = app.get('/view-cart', (req, res, next) => {
-    let myCartInstance = new Cart
-
-    myCartInstance.currentCartItems((productsInCart) =>{
-        res.render('cart', {allCartProducts: productsInCart})
+    let currentUser = req.User
+    let userCart = currentUser.getCart()
+    .then( userCart => {
+        userCart.getProducts({
+            where:{
+            UserId: req.User.id
+        }})
+        .then(productsInCart =>{
+            res.render('cart', {allCartProducts: productsInCart})
+        })
     })
 })
 
 exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
-    let myCartInstance = new Cart
-    productKey = req.params.productKey
+
+    let productKey = req.params.productKey
     
-    myCartInstance.removeFromCart(productKey)
- 
-    res.redirect('/view-cart')
+    let currentUser = req.User
+    let userCart = currentUser.getCart()
+    .then( userCart => {
+        userCart.CartsProducts.destroy({
+            where:{
+                ProductId: productKey,
+        }})
+        .then(() => res.redirect('/view-cart'))
+        .catch(error =>{
+            console.log(error)
+        })
+        
+    })
 }) 

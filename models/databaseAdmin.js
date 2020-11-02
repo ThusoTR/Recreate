@@ -36,11 +36,11 @@ User.hasMany(Order, {
   })
 Order.belongsTo(User)
 
-Product.belongsToMany(Cart, { through: 'CartsProducts' });
-Cart.belongsToMany(Product, { through: 'CartsProducts' });
+Product.belongsToMany(Cart, { through: 'CartsProducts' , uniqueKey: 'key' });
+Cart.belongsToMany(Product, { through: 'CartsProducts' , uniqueKey: 'key' });
 
-Product.belongsToMany(Order, { through: 'ProductsOrders' });
-Order.belongsToMany(Product, { through: 'ProductsOrders' });
+Product.belongsToMany(Order, { through: 'ProductsOrders' , uniqueKey: 'key' });
+Order.belongsToMany(Product, { through: 'ProductsOrders' , uniqueKey: 'key' });
 
 const syncAllModels = () =>{
   sequelizeinstance.sync({ force: true });
