@@ -158,14 +158,23 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
     let currentUser = req.User
     let userCart = currentUser.getCart()
     .then( userCart => {
-        userCart.CartsProducts.destroy({
+        return userCart.getProducts( {
             where:{
-                ProductId: productKey,
+                id: productKey,
         }})
+        .then(productToDelete =>{
+            console.log("productToDelete: ", productToDelete)
+            userCart.removeProduct(productToDelete, {
+                where:{
+                    id: productKey,
+            }})
+        })
         .then(() => res.redirect('/view-cart'))
         .catch(error =>{
             console.log(error)
         })
         
+    }).catch( error => {
+        console.log(' No cart found?: ',error)
     })
 }) 

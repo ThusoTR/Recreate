@@ -37,6 +37,7 @@ app.use(routes.productsAdmin)
 app.use(routes.productDelete)
 app.use(routes.addtoCart)
 app.use(routes.viewCart)
+app.use(routes.removeFromCart)
 app.use(routes.addProduct)
 
 
