@@ -105,7 +105,7 @@ exports.addProduct = app.post('/add-product', (req, res, next) =>{
         UserId: req.User.id,
         })
         .then(() =>{
-        res.redirect('/home')
+        res.redirect('/product-list')
         })
         .catch((error) =>{
         console.log(error)
@@ -133,7 +133,7 @@ exports.addtoCart = app.get('/product/:productKey', (req, res, next) =>{
             console.log('product not added')
         })
         
-    res.redirect('/home') 
+    res.redirect('/view-cart') 
     })
 })
 
@@ -167,12 +167,13 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
             userCart.removeProduct(productToDelete, {
                 where:{
                     id: productKey,
-            }})
+            }})        
+            .then(() => res.redirect('/view-cart'))
+            .catch(error =>{
+                console.log(error)
+            })
         })
-        .then(() => res.redirect('/view-cart'))
-        .catch(error =>{
-            console.log(error)
-        })
+
         
     }).catch( error => {
         console.log(' No cart found?: ',error)
