@@ -179,3 +179,7 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
         console.log(' No cart found?: ',error)
     })
 }) 
+
+exports.viewOrders = app.get('/view-orders', (req, res, next) =>{
+
+})

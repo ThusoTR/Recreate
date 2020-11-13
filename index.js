@@ -39,6 +39,6 @@ app.use(routes.addtoCart)
 app.use(routes.viewCart)
 app.use(routes.removeFromCart)
 app.use(routes.addProduct)
-
+app.use(routes.viewOrders)
 
 app.listen(8000)
