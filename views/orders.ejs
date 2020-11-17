@@ -1,0 +1,22 @@
+<%- include('includes/navigationTab', {pageTitle: 'homepage'}); %>
+<link rel="stylesheet" href="/styles/cart.css">
+     <div class="cart-page">
+        <div class="all-cart-products">
+            <% allOrders.forEach(function(order) {%>
+                <div class="product">
+                    <div class="product-details">
+                        <p><strong>Order id:</strong> <%= order.id %></p>
+                        <p><strong>Delivery type:</strong> <%= order.deliveryType %></p>
+                        <p><strong>Date updated:</strong> <%= order.dateUpdated %></p>
+                        <p><strong>Total price:</strong> <%= order.totalPrice %></p>
+                        
+                        <div>
+                            <a href="/view-cart/<%= order.id %>"> <button>Cancel and delete</button></a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div> 
+     </div>
+</body>
+</html>

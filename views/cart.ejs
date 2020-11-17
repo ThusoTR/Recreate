@@ -1,6 +1,9 @@
 <%- include('includes/navigationTab', {pageTitle: 'homepage'}); %>
 <link rel="stylesheet" href="/styles/cart.css">
      <div class="cart-page">
+        <div>
+            <a href="/create-orders"> <button>Order</button></a>
+        </div>
         <div class="all-cart-products">
             <% allCartProducts.forEach(function(product) {%>
                 <div class="product">

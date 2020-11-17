@@ -1,6 +1,7 @@
 const express = require('express')
 const Product = require('../../models/products')
 const Cart = require('../../models/cart')
+const Order = require('../../models/order')
 
 const assosciations = require('../../models/databaseAdmin') //allows for model assosciation to be visible in this file
 
@@ -164,10 +165,7 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
         }})
         .then(productToDelete =>{
             console.log("productToDelete: ", productToDelete)
-            userCart.removeProduct(productToDelete, {
-                where:{
-                    id: productKey,
-            }})        
+            userCart.removeProduct(productToDelete)        
             .then(() => res.redirect('/view-cart'))
             .catch(error =>{
                 console.log(error)
@@ -181,5 +179,66 @@ exports.removeFromCart = app.get('/view-cart/:productKey', (req, res, next) => {
 }) 
 
 exports.viewOrders = app.get('/view-orders', (req, res, next) =>{
+    let currentUser = req.User
+    Order.findAll({where:
+        {UserId: currentUser.id,}
+    })
+    .then(allOrdersOfUser =>{
+        res.render('orders', {allOrders: allOrdersOfUser})
+    })
+})
 
+exports.deleteOrder = app.get('/delete-order', (req, res, next) =>{
+    let currentUser = req.User
+    Order.findAll({where:
+        {UserId: currentUser.id,}
+    })
+    .then(allOrdersOfUser =>{
+        res.render('orders', {allOrders: allOrdersOfUser})
+    })
+})
+
+exports.createOrder = app.get('/create-orders', (req, res, next) =>{
+    let currentUser = req.User
+    let userCart = currentUser.getCart()
+    .then( userCart => {
+        userCart.getProducts({
+            where:{
+            UserId: req.User.id
+        }})
+        .then(productsInCart =>{
+            let totalCostOfCart = 0
+            productsInCart.forEach(element => {
+                totalCostOfCart += parseInt(element.price)
+            });
+            console.log('totalCostOfCart: ', totalCostOfCart)
+            Order.create({
+                totalPrice: totalCostOfCart,
+                deliveryType: 'Door delivery',
+                deliveryAddress: 'Not availabe',
+                dateCreated: Date.now(),
+                dateUpdated: Date.now(),
+                dateCompleted: Date.now(),
+                UserId: currentUser.id,
+            })
+            .then( OrderModel =>{
+                let currentCart = currentUser.getCart()
+                .then(currentCart =>{
+                    productsInCart.forEach(orderProduct => {
+                        OrderModel.addProduct(orderProduct, {
+                           though:{ 
+                                ProductId: orderProduct.id,
+                                OrderId: OrderModel.id,
+                            }
+                        })
+    
+                        currentCart.removeProduct(orderProduct)
+                    });  
+                    
+                    res.redirect('/home')
+                })
+
+            })
+        })
+    })
 })
